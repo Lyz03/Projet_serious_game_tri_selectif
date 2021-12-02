@@ -1,0 +1,53 @@
+body {
+    background-color: #ecdfd3;
+    color: #106900;
+}
+
+.grabbed {
+    opacity: 0.6;
+}
+
+#waste {
+    cursor: grab;
+}
+
+.trash {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.trash span > i {
+    font-size: 10rem;
+}
+
+#yellow {
+    color: #E0D42B;
+}
+
+#yellow:hover {
+    color: #ecdb32;
+}
+
+#green {
+    color: #0B2E13;
+}
+
+#green:hover {
+    color: #104b1f;
+}
+
+#blue {
+    color: #16193D;
+}
+
+#blue:hover {
+    color: #222665;
+}
+
+#brown {
+    color: #69471E;
+}
+
+#brown:hover {
+    color: #8a5925;
+}
