@@ -86,7 +86,7 @@ h3 {
 
 #waste_div {
     text-align: center;
-    padding-top: 4rem;
+    padding: 4rem 0;
 }
 
 #waste {
@@ -97,10 +97,12 @@ h3 {
 .trash {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .trash span > i {
     font-size: 10rem;
+    margin-top: 1rem;
 }
 
 #yellow {
@@ -157,3 +159,30 @@ h2 {
 /*
 * responsive
  */
+
+/*
+@media screen and (max-width: 700px) {
+    .trash {
+        display: block;
+    }
+
+    .trash div {
+        display: inline-block;
+    }
+}
+
+ */
+
+@media screen and (max-width: 600px){
+    #informations {
+        left: 5rem;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    #informations p {
+        font-size: 0.8rem;
+    }
+}
