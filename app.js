@@ -1,13 +1,5 @@
-const waste = document.getElementById('waste');
-const trashes = document.querySelectorAll('.trash span');
-const scoreSpan = document.getElementById('score');
-const goodGuessesP = document.getElementById('good_guesses');
-const wrongGuessesP = document.getElementById('wrong-guesses');
-const trueFalseP = document.getElementById('true_false');
-const informations = document.getElementById('informations');
-
 const yellow = [
-    "Bouteille plastique",
+    "Bouteilles plastiques",
     "Flacons plastiques",
     "Boites en carton",
     "Boites de conserve en fer",
@@ -31,6 +23,14 @@ const brown = [
     "Restes de repas",
     "Pots de yaourts"
 ];
+
+const waste = document.getElementById('waste');
+const trashes = document.querySelectorAll('.trash span');
+const scoreSpan = document.getElementById('score');
+const goodGuessesP = document.getElementById('good_guesses');
+const wrongGuessesP = document.getElementById('wrong-guesses');
+const trueFalseP = document.getElementById('true_false');
+const informations = document.getElementById('informations');
 
 let currentWasteDropped;
 let randomSelection;
@@ -80,18 +80,17 @@ function drop(e) {
     printWaste();
     currentWasteDropped = e.path[1].id
     isGoodTrash()
+    // end game
     if (isDropped === 10){
         trueFalseP.innerText = 'Fini !'
         setTimeout(function () {
             document.getElementById('game').style.display = 'none';
-            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').style.display = 'flex';
         }, 1200);
 
         printAnswers();
     }
 }
-
-// quelle couleur tenter e.path[1] === span#yellow
 
 // create a random index
 function randomNumber(array) {
@@ -129,7 +128,6 @@ function printWaste() {
     } else {
         waste.innerText = '';
     }
-
 }
 
 // Chek if it was the good trash
@@ -156,7 +154,7 @@ function trashColor(color, array) {
     }
 }
 
-// give the answer if it's a wrong guess
+// print good and wrong answers
 function printAnswers() {
     if (goodGuesses.length === 0) {
         goodGuessesP.style.display = 'none';
@@ -164,9 +162,18 @@ function printAnswers() {
         wrongGuessesP.style.display = 'none';
     }
     goodGuesses.forEach(function (value) {
-        goodGuessesP.innerText += ` ${value}, `;
+        goodGuessesP.innerHTML += value + "<br>";
     });
     wrongGuesses.forEach(function (value) {
-       wrongGuessesP.innerText += ` ${value}, `;
+        // where was it supposed to go
+        if (yellow.includes(value)) {
+            wrongGuessesP.innerHTML +=  value + " vas dans la poubelle jaune <br>";
+        } else if (green.includes(value)) {
+            wrongGuessesP.innerHTML +=  value + " vas dans la poubelle verte <br>";
+        } else if (blue.includes(value)) {
+            wrongGuessesP.innerHTML +=  value + " vas dans la poubelle bleu <br>";
+        } else {
+            wrongGuessesP.innerHTML +=  value + " vas dans la poubelle marron <br>";
+        }
     });
 }

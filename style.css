@@ -6,15 +6,60 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+a {
+    color: #faede5;
+}
+
+/*
+ * header
+ */
+
+h1 {
+    text-align: center;
+    font-size: 2.3rem;
+}
+
+header p {
+    text-align: right;
+    padding-right: 2rem;
+    font-size: 1.3rem;
+}
+
+#true_false {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 1rem;
+}
+
 #informations {
     display: none;
     position: absolute;
     top: 7rem;
-    left: 4rem;
+    left: 7rem;
     background-color: #106900;
     color: #faede5;
     padding: 2rem;
     border-radius: 15px;
+}
+
+#informations p {
+    font-size: 1rem;
+    text-align: left;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+#informations button {
+    background-color: #faede5;
+    color: #106900;
+    border: none;
+    padding: 0.5rem 1rem;
+}
+
+#informations button:hover {
+    cursor: pointer;
 }
 
 #get_info {
@@ -27,15 +72,25 @@ body {
     border-radius: 15px;
 }
 
-#result {
-    display: none;
+#get_info:hover {
+    cursor: pointer;
 }
+
+/*
+* game section
+ */
 
 .grabbed {
     opacity: 0.6;
 }
 
+#waste_div {
+    text-align: center;
+    padding-top: 4rem;
+}
+
 #waste {
+    font-size: 1.3rem;
     cursor: grab;
 }
 
@@ -79,3 +134,26 @@ body {
 #brown:hover {
     color: #8a5925;
 }
+
+/*
+* result section
+ */
+
+#result {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+h2 {
+    width: 100%;
+}
+
+#result p > span {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/*
+* responsive
+ */
