@@ -9,8 +9,29 @@
 <body>
 
     <h1>Serious game : tri sélectif</h1>
+    <div>
+        <div id="get_info"><i class="fas fa-info"></i></div>
+        <div id="informations">
+            <h3>La poubelle jaune</h3>
+            <p>Elle contient le plastique, le carton, ainsi que le métal</p>
+            <h3>La poubelle verte</h3>
+            <p>Elle contient le verre et le papier gras / souillé</p>
+            <h3>La poubelle bleu</h3>
+            <p>Elle contient les magazines et journaux</p>
+            <h3>La poubelle marron</h3>
+            <p>Elle contient les déchets ménagers non recyclable</p>
+            <p>
+                pour plus d'information vous pouvez aller sur
+                <a href="https://recyclage.ooreka.fr/astuce/voir/745361/tri-selectif">
+                    ce site.
+                </a>
+            </p>
+            <button id="hide_information">Compris</button>
+        </div>
+    </div>
     <p>Score : <span id="score"></span> / 10</p>
-    <section>
+    <p id="true_false">Faite glisser les déchets dans la bonne poubelle</p>
+    <section id="game">
         <div class="trash">
             <div>
                 <span id="yellow" title="plastique, metal, carton"><i class="fas fa-trash"></i></span>
@@ -29,6 +50,11 @@
         <div>
             <span id="waste" draggable="true">test</span>
         </div>
+    </section>
+    <section id="result">
+        <h2>Bonnes réponses :</h2>
+        <p id="good_guesses"><span>Vos bonnes réponses :</span></p>
+        <p id="wrong-guesses"><span>Vos mauvaises réponses :</span></p>
     </section>
 
     <script src="https://kit.fontawesome.com/25d98733ec.js" crossorigin="anonymous"></script>

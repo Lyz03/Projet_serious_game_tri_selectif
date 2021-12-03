@@ -1,6 +1,10 @@
 const waste = document.getElementById('waste');
 const trashes = document.querySelectorAll('.trash span');
 const scoreSpan = document.getElementById('score');
+const goodGuessesP = document.getElementById('good_guesses');
+const wrongGuessesP = document.getElementById('wrong-guesses');
+const trueFalseP = document.getElementById('true_false');
+const informations = document.getElementById('informations');
 
 const yellow = [
     "Bouteille plastique",
@@ -37,6 +41,15 @@ let temporaryBrown;
 let isDropped = - 0;
 let points = 0;
 let wrongGuesses = [];
+let goodGuesses = [];
+
+document.getElementById('get_info').addEventListener('click', function () {
+    informations.style.display = 'block';
+});
+
+document.getElementById('hide_information').addEventListener("click", function () {
+    informations.style.display = 'none';
+});
 
 scoreSpan.innerText = points.toString();
 
@@ -67,6 +80,15 @@ function drop(e) {
     printWaste();
     currentWasteDropped = e.path[1].id
     isGoodTrash()
+    if (isDropped === 10){
+        trueFalseP.innerText = 'Fini !'
+        setTimeout(function () {
+            document.getElementById('game').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+        }, 1200);
+
+        printAnswers();
+    }
 }
 
 // quelle couleur tenter e.path[1] === span#yellow
@@ -102,7 +124,11 @@ let currentWaste = waste.innerText;
 
 //print the waste (one by one)
 function printWaste() {
-    waste.innerText = randomSelection[isDropped]
+    if (isDropped !== 10) {
+        waste.innerText = randomSelection[isDropped]
+    } else {
+        waste.innerText = '';
+    }
 
 }
 
@@ -120,12 +146,27 @@ function trashColor(color, array) {
         if (array.includes(currentWaste)) {
             points++;
             scoreSpan.innerText = points.toString();
-            console.log(array);
-            console.log('test')
+            goodGuesses.push(currentWaste);
+            trueFalseP.innerText = 'Vrai';
         } else {
             wrongGuesses.push(currentWaste);
+            trueFalseP.innerText = 'Faux';
         }
-
         currentWaste = waste.innerText;
     }
+}
+
+// give the answer if it's a wrong guess
+function printAnswers() {
+    if (goodGuesses.length === 0) {
+        goodGuessesP.style.display = 'none';
+    } else if (wrongGuesses.length === 0) {
+        wrongGuessesP.style.display = 'none';
+    }
+    goodGuesses.forEach(function (value) {
+        goodGuessesP.innerText += ` ${value}, `;
+    });
+    wrongGuesses.forEach(function (value) {
+       wrongGuessesP.innerText += ` ${value}, `;
+    });
 }

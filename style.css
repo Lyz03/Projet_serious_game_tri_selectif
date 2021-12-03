@@ -6,6 +6,31 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+#informations {
+    display: none;
+    position: absolute;
+    top: 7rem;
+    left: 4rem;
+    background-color: #106900;
+    color: #faede5;
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+#get_info {
+    display: inline-block;
+    width: 1.5rem;
+    text-align: center;
+    background-color: #106900;
+    color: #faede5;
+    padding: 1rem;
+    border-radius: 15px;
+}
+
+#result {
+    display: none;
+}
+
 .grabbed {
     opacity: 0.6;
 }
