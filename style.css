@@ -151,28 +151,27 @@ h2 {
     width: 100%;
 }
 
-#result p > span {
+#result p {
     font-weight: bold;
     font-size: 1.1rem;
+}
+
+#result span {
+    font-weight: normal;
+    font-size: 0.9rem;
+}
+
+#result button {
+    background-color: #106900;
+    color: #faede5;
+    border: none;
+    padding: 0.5rem 1rem;
+    height: 2rem;
 }
 
 /*
 * responsive
  */
-
-/*
-@media screen and (max-width: 700px) {
-    .trash {
-        display: block;
-    }
-
-    .trash div {
-        display: inline-block;
-    }
-}
-
- */
-
 @media screen and (max-width: 600px){
     #informations {
         left: 5rem;
@@ -184,5 +183,21 @@ h2 {
 
     #informations p {
         font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 575px){
+    .trash > span i {
+        font-size: 7rem;
+    }
+}
+
+@media screen and (max-width: 435px){
+    .trash > span i {
+        font-size: 5rem;
+    }
+
+    #waste_div {
+        padding: 2rem 0;
     }
 }

@@ -27,8 +27,8 @@ const brown = [
 const waste = document.getElementById('waste');
 const trashes = document.querySelectorAll('.trash span');
 const scoreSpan = document.getElementById('score');
-const goodGuessesP = document.getElementById('good_guesses');
-const wrongGuessesP = document.getElementById('wrong-guesses');
+const goodGuessesSpan = document.querySelector('#good_guesses span');
+const wrongGuessesSpan = document.querySelector('#wrong-guesses span');
 const trueFalseP = document.getElementById('true_false');
 const informations = document.getElementById('informations');
 
@@ -38,10 +38,11 @@ let temporaryYellow;
 let temporaryGreen;
 let temporaryBlue;
 let temporaryBrown;
-let isDropped = - 0;
+let isDropped = 0;
 let points = 0;
 let wrongGuesses = [];
 let goodGuesses = [];
+let currentWaste;
 
 // Checks if the touch is used
 isTouch = !!("ontouchstart" in window || navigator.msMaxTouchPoints);
@@ -56,32 +57,34 @@ document.getElementById('hide_information').addEventListener("click", function (
 
 scoreSpan.innerText = points.toString();
 
-if (isTouch) {
-    // add a click event on each trashes
-    for (const index of trashes) {
-        index.addEventListener("click", function () {
-            clickForTouch(index);
-        })
-    }
+function runGame() {
+    if (isTouch) {
+        // add a click event on each trashes
+        for (const index of trashes) {
+            index.addEventListener('click', clickForTouch)
+        }
 
-} else {
-    // Drag and drop event
-    waste.addEventListener('dragstart', dragStart);
-    waste.addEventListener("dragend", dragEnd);
+    } else {
+        // Drag and drop event
+        waste.addEventListener('dragstart', dragStart);
+        waste.addEventListener("dragend", dragEnd);
 
-    for (const index of trashes) {
-        index.addEventListener('dragover', dragOver);
-        index.addEventListener('drop', drop);
+        for (const index of trashes) {
+            index.addEventListener('dragover', dragOver);
+            index.addEventListener('drop', drop);
+        }
     }
 }
+runGame();
 
 // click function for tough devices
-function clickForTouch(index) {
+function clickForTouch() {
     isDropped++;
     printWaste();
-    currentWasteDropped = index.id
-    isGoodTrash()
+    currentWasteDropped = this.id;
+    isGoodTrash();
     gameEnd();
+    console.log(isDropped)
 }
 
 // drag and drop functions
@@ -100,14 +103,14 @@ function dragEnd() {
 function drop(e) {
     isDropped++;
     printWaste();
-    currentWasteDropped = e.path[1].id
-    isGoodTrash()
+    currentWasteDropped = e.path[1].id;
+    isGoodTrash();
     gameEnd();
 }
 
 // end game
 function gameEnd() {
-    if (isDropped === 10){
+    if (isDropped >= 10){
         trueFalseP.innerText = 'Fini !'
         setTimeout(function () {
             document.getElementById('game').style.display = 'none';
@@ -142,14 +145,18 @@ function shuffleArray(array){
     return array.sort(()=> Math.random() - 0.5);
 }
 
-randomSelection = selection();
-randomSelection = shuffleArray(randomSelection);
-waste.innerText = randomSelection[0];
-let currentWaste = waste.innerText;
+// pick a waste
+function setWaste() {
+    randomSelection = selection();
+    randomSelection = shuffleArray(randomSelection);
+    waste.innerText = randomSelection[0];
+    currentWaste = waste.innerText;
+}
+setWaste();
 
 //print the waste (one by one)
 function printWaste() {
-    if (isDropped !== 10) {
+    if (isDropped < 10) {
         waste.innerText = randomSelection[isDropped]
     } else {
         waste.innerText = '';
@@ -183,23 +190,46 @@ function trashColor(color, array) {
 // print good and wrong answers
 function printAnswers() {
     if (goodGuesses.length === 0) {
-        goodGuessesP.style.display = 'none';
+        goodGuessesSpan.style.display = 'none';
     } else if (wrongGuesses.length === 0) {
-        wrongGuessesP.style.display = 'none';
+        wrongGuessesSpan.style.display = 'none';
     }
     goodGuesses.forEach(function (value) {
-        goodGuessesP.innerHTML += value + "<br>";
+        goodGuessesSpan.innerHTML += value + "<br>";
     });
     wrongGuesses.forEach(function (value) {
         // where was it supposed to go
         if (yellow.includes(value)) {
-            wrongGuessesP.innerHTML +=  value + " vas dans la poubelle jaune <br>";
+            wrongGuessesSpan.innerHTML +=  value + " vas dans la poubelle jaune <br>";
         } else if (green.includes(value)) {
-            wrongGuessesP.innerHTML +=  value + " vas dans la poubelle verte <br>";
+            wrongGuessesSpan.innerHTML +=  value + " vas dans la poubelle verte <br>";
         } else if (blue.includes(value)) {
-            wrongGuessesP.innerHTML +=  value + " vas dans la poubelle bleu <br>";
+            wrongGuessesSpan.innerHTML +=  value + " vas dans la poubelle bleu <br>";
         } else {
-            wrongGuessesP.innerHTML +=  value + " vas dans la poubelle marron <br>";
+            wrongGuessesSpan.innerHTML +=  value + " vas dans la poubelle marron <br>";
         }
     });
 }
+
+function resetGame() {
+    currentWasteDropped = '';
+    randomSelection = [];
+    temporaryYellow = [];
+    temporaryGreen = [];
+    temporaryBlue = [];
+    temporaryBrown = [];
+    isDropped = 0;
+    points = 0;
+    wrongGuesses = [];
+    goodGuesses = [];
+    wrongGuessesSpan.innerText = '';
+    goodGuessesSpan.innerText = '';
+    scoreSpan.innerText = points.toString();
+    trueFalseP.innerText = "Faites glisser les déchets dans la bonne poubelle, sur mobile cliquer sur la poubelle";
+    document.getElementById('game').style.display = 'block';
+    document.getElementById('result').style.display = 'none';
+    runGame();
+    setWaste();
+}
+
+document.getElementById('reset').addEventListener('click', resetGame);
