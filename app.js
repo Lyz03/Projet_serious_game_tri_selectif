@@ -43,6 +43,9 @@ let points = 0;
 let wrongGuesses = [];
 let goodGuesses = [];
 
+// Checks if the touch is used
+isTouch = !!("ontouchstart" in window || navigator.msMaxTouchPoints);
+
 document.getElementById('get_info').addEventListener('click', function () {
     informations.style.display = 'block';
 });
@@ -53,13 +56,32 @@ document.getElementById('hide_information').addEventListener("click", function (
 
 scoreSpan.innerText = points.toString();
 
-// Drag and drop event
-waste.addEventListener('dragstart', dragStart);
-waste.addEventListener("dragend", dragEnd);
+if (isTouch) {
+    // add a click event on each trashes
+    for (const index of trashes) {
+        index.addEventListener("click", function () {
+            clickForTouch(index);
+        })
+    }
 
-for (const index of trashes) {
-    index.addEventListener('dragover', dragOver);
-    index.addEventListener('drop', drop);
+} else {
+    // Drag and drop event
+    waste.addEventListener('dragstart', dragStart);
+    waste.addEventListener("dragend", dragEnd);
+
+    for (const index of trashes) {
+        index.addEventListener('dragover', dragOver);
+        index.addEventListener('drop', drop);
+    }
+}
+
+// click function for tough devices
+function clickForTouch(index) {
+    isDropped++;
+    printWaste();
+    currentWasteDropped = index.id
+    isGoodTrash()
+    gameEnd();
 }
 
 // drag and drop functions
@@ -80,7 +102,11 @@ function drop(e) {
     printWaste();
     currentWasteDropped = e.path[1].id
     isGoodTrash()
-    // end game
+    gameEnd();
+}
+
+// end game
+function gameEnd() {
     if (isDropped === 10){
         trueFalseP.innerText = 'Fini !'
         setTimeout(function () {
