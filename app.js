@@ -84,7 +84,6 @@ function clickForTouch() {
     currentWasteDropped = this.id;
     isGoodTrash();
     gameEnd();
-    console.log(isDropped)
 }
 
 // drag and drop functions
@@ -189,11 +188,6 @@ function trashColor(color, array) {
 
 // print good and wrong answers
 function printAnswers() {
-    if (goodGuesses.length === 0) {
-        goodGuessesSpan.style.display = 'none';
-    } else if (wrongGuesses.length === 0) {
-        wrongGuessesSpan.style.display = 'none';
-    }
     goodGuesses.forEach(function (value) {
         goodGuessesSpan.innerHTML += value + "<br>";
     });
